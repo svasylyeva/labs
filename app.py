@@ -6,11 +6,11 @@ import pandas as pd
 import numpy as np
 
 # Dataset Processing
-
-x = np.array([1, 2, 3, 4, 5])
-y = x * 2
+cities = pd.read_csv('https://raw.githubusercontent.com/hflabs/city/master/city.csv')
 
 # Building our Graphs
+
+
 def to_int_year(value):
     try:
         return int(value)
