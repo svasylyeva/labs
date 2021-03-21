@@ -11,18 +11,10 @@ x = np.array([1, 2, 3, 4, 5])
 y = x * 2
 
 # Building our Graphs
+cities = pd.read_csv('https://raw.githubusercontent.com/hflabs/city/master/city.csv')
+fig_map = go.Figure(go.Scattermapbox(lat=cities['geo_lat'], lon=cities['geo_lon']))
+fig_map.update_layout(mapbox_style="open-street-map")
 
-data_scatter = dict(type='scatter',
-                    x=x,
-                    y=y,
-                    name='example'
-                    )
-
-layout_scatter = dict(xaxis=dict(title='X axis'),
-                      yaxis=dict(title='Y axis')
-                      )
-
-fig_scatter = go.Figure(data=data_scatter, layout=layout_scatter)
 
 # The App itself
 
@@ -31,13 +23,13 @@ app = dash.Dash(__name__)
 server = app.server
 
 app.layout = html.Div([
-    html.H1('My First DashBoard'),
+    html.H1('Dashboard example'),
 
-    html.Div('Example of html Container'),
+    html.Div('Example of html Container, MAP'),
 
     dcc.Graph(
         id='example-graph',
-        figure=fig_scatter
+        figure=fig_map
     )
 ])
 
