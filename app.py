@@ -9,27 +9,13 @@ import numpy as np
 cities = pd.read_csv('https://raw.githubusercontent.com/hflabs/city/master/city.csv')
 
 # Building our Graphs
+
+map_center = go.layout.mapbox.Center(lat=capital['geo_lat'].values[0], lon=capital['geo_lon'].values[0])
+fig = go.Figure(go.Scattermapbox(lat=cities['geo_lat'], lon=cities['geo_lon']))
 capital = cities[cities['region']=='Москва']
 map_center = go.layout.mapbox.Center(lat=capital['geo_lat'].values[0], lon=capital['geo_lon'].values[0])
-
-def to_int_year(value):
-    try:
-        return int(value)
-    except:
-        return None
-
-cities['foundation_year'] = cities['foundation_year'].map(to_int_year)
-cities = cities[['region', 'city', 'geo_lat', 'geo_lon', 'foundation_year', 'population']].dropna()
-
-fig_map = go.Figure(go.Scattermapbox(lat=cities['geo_lat'], 
-                                 lon=cities['geo_lon'], 
-                                 text=cities['city'],
-                                 marker=dict(colorbar=dict(title="Year of foundation"),
-                                             color=cities['foundation_year'],
-                                             size=cities['population'].map(to_int_size))))
-fig_map.update_layout(mapbox_style="open-street-map",
+fig.update_layout(mapbox_style="open-street-map",
                   mapbox=dict(center=map_center, zoom=2))
-
 
 # The App itself
 
@@ -44,7 +30,7 @@ app.layout = html.Div([
 
     dcc.Graph(
         id='example-graph',
-        figure=fig_map
+        figure=fig
     )
 ])
 
