@@ -9,7 +9,8 @@ import numpy as np
 cities = pd.read_csv('https://raw.githubusercontent.com/hflabs/city/master/city.csv')
 
 # Building our Graphs
-
+capital = cities[cities['region']=='Berlin']
+map_center = go.layout.mapbox.Center(lat=capital['geo_lat'].values[0], lon=capital['geo_lon'].values[0])
 
 def to_int_year(value):
     try:
