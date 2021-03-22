@@ -9,12 +9,10 @@ import numpy as np
 cities = pd.read_csv('https://raw.githubusercontent.com/hflabs/city/master/city.csv')
 
 # Building our Graphs
+cities = pd.read_csv('https://raw.githubusercontent.com/hflabs/city/master/city.csv')
+fig1 = go.Figure(go.Scattermapbox(lat=cities['geo_lat'], lon=cities['geo_lon']))
+fig1.update_layout(mapbox_style="open-street-map")
 
-map_center = go.layout.mapbox.Center(lat=capital['geo_lat'].values[0], lon=capital['geo_lon'].values[0])
-fig_map = go.Figure(go.Scattermapbox(lat=cities['geo_lat'], lon=cities['geo_lon']))
-
-fig_map.update_layout(mapbox_style="open-street-map",
-                  mapbox=dict(center=map_center, zoom=2))
 
 # The App itself
 
@@ -29,7 +27,7 @@ app.layout = html.Div([
 
     dcc.Graph(
         id='example-graph',
-        figure=fig_map
+        figure=fig1
     )
 ])
 
